@@ -33,6 +33,7 @@ builder.Services.AddScoped<IAmenityRepository, AmenityRepository>();
 builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
 builder.Services.AddScoped<HouseService>();
 builder.Services.AddScoped<IHouseTypeRepository, HouseTypeRepository>();
+builder.Services.AddScoped<ISearchRepository, SearchRepository>();
 
 
 

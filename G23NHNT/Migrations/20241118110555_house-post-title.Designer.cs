@@ -4,6 +4,7 @@ using G23NHNT.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace G23NHNT.Migrations
 {
     [DbContext(typeof(G23_NHNTContext))]
-    partial class G23_NHNTContextModelSnapshot : ModelSnapshot
+    [Migration("20241118110555_house-post-title")]
+    partial class houseposttitle
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -147,9 +149,6 @@ namespace G23NHNT.Migrations
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("SoNguoiO")
-                        .HasColumnType("int");
 
                     b.Property<string>("Status")
                         .IsRequired()

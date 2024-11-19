@@ -42,6 +42,9 @@ namespace G23NHNT.Models
         [StringLength(255, ErrorMessage = "Tên hình ảnh không được quá 255 ký tự.")]
         public string? Image { get; set; }
 
+        [Required(ErrorMessage = "Số người ở bắt buộc.")]
+        public int SoNguoiO { get; set; } = 1;
+
         public DateTime TimePost { get; set; }
 
         // Foreign Key for House

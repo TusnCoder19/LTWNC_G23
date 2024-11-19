@@ -21,6 +21,10 @@ namespace G23NHNT.Models
         [StringLength(100, ErrorMessage = "Tên nhà trọ phải dưới 100 ký tự.")]
         public string NameHouse { get; set; } = null!;
 
+        [Required(ErrorMessage = "Tiêu đề bài viết là bắt buộc")]
+        [StringLength(100, ErrorMessage = "Tiêu đề bài buộc phải dưới 100 ký tự.")]
+        public string PostTitle { get; set; } = null!;
+
         [Required(ErrorMessage = "IdUser không được để trống.")]
         public int IdUser { get; set; }
 

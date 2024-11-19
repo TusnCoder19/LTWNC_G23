@@ -1,0 +1,385 @@
+.home-main {
+    background: #d9d9d9;
+    min-height:calc(100vh - 65px);
+
+}
+body {
+    padding-top:64px !important;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.mt-3 {
+    margin-top: 1.5rem;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.btn-primary {
+    padding: 10px 20px;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+.filter-section {
+    display: flex;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    flex-direction: column;
+    gap: 0.5rem;
+    border-radius: 1rem;
+    width: 100%;
+    background-color: #ffffff;
+    height: calc(100vh);
+}
+
+
+.filter-item {
+    margin-bottom: 20px;
+}
+
+    .filter-item label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+
+    .filter-item select,
+    .checkbox-group input {
+        width: 100%;
+        padding: 8px;
+        margin-top: 5px;
+    }
+
+.house-list {
+    margin-top: 20px;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.house-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+    text-align: left;
+}
+
+.house-image {
+    border-top-left-radius: 0.75rem;
+    border-top-right-radius: 0.75rem;
+}
+
+.card-body {
+    padding: 15px;
+}
+
+    .card-body h5 {
+        margin: 0 0 10px;
+    }
+
+.btn-view-detail {
+    display: inline-block;
+    padding: 10px 15px;
+    color: #fff;
+    background-color: #dc3545;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+    .btn-view-detail:hover {
+        background-color: #a71d2a;
+    }
+
+
+.container-body {
+    scrollbar-width: thin;
+    scrollbar-color: #d6d6d6 transparent;
+    display: flex;
+    overflow: scroll;
+    padding: 1rem;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+    background-color: transparent;
+    max-height: calc(100vh - 207px);
+}
+
+    .container-body::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    .container-body::-webkit-scrollbar-thumb {
+        background-color: #d6d6d6;
+        border-radius: 10px;
+    }
+
+
+.house-row {
+    grid-column: span 1 / span 1;
+}
+
+.house-item {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    border-radius: 0.5rem;
+    background-color: #ffffff;
+    cursor: pointer;
+}
+
+.house-image-container {
+    position: relative;
+    width: 100%;
+    height: 128px;
+}
+
+
+
+/* General container for content */
+.content-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 8px;
+    gap: 8px;
+}
+
+/* Title styles */
+.title {
+    color: #2E2F3F;
+    font-size: 1rem; /* Adjust size for responsiveness */
+    font-weight: 600;
+    white-space: pre-wrap !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Price styles */
+.price {
+    color: #DD3E1F;
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+/* Info section layout */
+.info-section {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #8A8C8E;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+/* Icon wrapper and image styling */
+.icon-wrapper {
+    width: 20px;
+    height: 20px;
+    position: relative;
+}
+
+.icon-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display:block;
+}
+
+/* Address and other details */
+.address,
+.truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Details container */
+.details {
+    display: flex;
+    gap: 16px;
+    color: #8A8C8E;
+    font-size: 0.875rem;
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* Discount tag styling */
+.discount-tag {
+    width: 78px;
+    height: 20px;
+    background: url('/images/discount-tag.svg') no-repeat center;
+    background-size: cover;
+    text-align: center;
+    font-size: 10px;
+    color: white;
+    font-weight: 500;
+    line-height: 20px;
+}
+
+.search-container {
+    padding: 0.5rem;
+    border-radius: 1rem;
+    width: 100%;
+    background-color: #ffffff;
+    height: 52px;
+}
+
+.house-list-container {
+    display: flex;
+     flex-direction:column;
+     gap: 0;
+}
+
+.filter-options {
+    max-height: 64vh;
+    overflow-y: scroll;
+}
+
+.list-left-side {
+    width: 100%;
+    display:none;
+}
+
+.form-control-lg {
+    height: 43px;
+}
+
+@media (min-width: 1024px) {
+    .container-body {
+        padding: 1.5rem;
+        height: 62vh;
+    }
+
+    .house-item {
+        padding: 0.5rem;
+        background-color: transparent;
+    }
+    .search-containercont {
+        padding: 0.75rem;
+        height: 70px;
+    }
+    .house-list-container {
+        padding-top: 2.5rem;
+        gap: 2.5rem;
+        flex-direction: row;
+        padding-left: 40px;
+        padding-right: 40px;
+        padding-top: 2.5rem;
+    }
+   
+    .list-left-side {
+        width: 30%;
+        display:block;
+    }
+
+    .list-right-side {
+        flex: 1;
+    }
+    #filterModal {
+        display:none;
+    }
+
+    .filter-modal-open-btn {
+        display:none;
+    }
+    .container-body {
+        max-height: none;
+    }
+   
+}
+
+@media (min-width: 768px) {
+    .house-row {
+        grid-column: span 2 / span 2;
+    }
+
+    .house-item {
+        flex-direction: row;
+        border-width: 1px;
+        border-color: #F0F0F0;
+    }
+
+    .house-image {
+        border-radius: 0.5rem;
+    }
+
+    .house-image-container {
+        width: 168px;
+        height: 180px;
+    }
+    .form-control-lg {
+        height: 48px;
+    }
+    .home-main {
+        padding-top: 20px;
+    }
+
+    .modal-dialog {
+        max-width: 100%;
+    }
+
+    .filter-options {
+        padding: 10px;
+    }
+
+    .container-body {
+        max-height: calc(100vh - 246px);
+    }
+}
+
+/* Make sure the filter button and search bar are properly aligned */
+.d-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-outline-secondary {
+    padding: 10px;
+}
+
+.filter-section {
+    display: flex;
+    padding: 1rem;
+    flex-direction: column;
+    gap: 0.5rem;
+    border-radius: 1rem;
+    background-color: #ffffff;
+}
+
+/* Modal style override if needed */
+.modal-content {
+    border-radius: 1rem;
+}
+
+.modal-header {
+    border-bottom: none;
+}
+
+.modal-body {
+    padding: 1rem;
+}

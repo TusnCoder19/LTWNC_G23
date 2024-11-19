@@ -1,0 +1,75 @@
+﻿/* Navbar */
+.navbar {
+    background-color: white; /* White background */
+    color: #2e2f3f; /* Default text color */
+    height: 65px;
+    width: 100%;
+    z-index: 1000;
+    top: 0;
+    position: fixed;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for modern look */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    transition: background-color 0.3s ease;
+}
+
+    .navbar .navbar-brand {
+        font-weight: bold;
+        color: #2e2f3f; /* Text color */
+        font-size: 1.8rem;
+        text-transform: uppercase;
+        padding: 10px 30px !important;
+    }
+
+        .navbar .navbar-brand i {
+            margin-right: 8px; /* Spacing between icon and text */
+        }
+
+.navbar-nav {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    gap: 20px; /* Space between nav items */
+}
+
+.navbar .nav-link {
+    color: #2e2f3f; /* Default text color */
+    font-size: 1rem;
+    padding: 8px 12px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+    .navbar .nav-link:hover {
+        color: #ff9900; /* Highlight text color on hover */
+    }
+
+    .navbar .nav-link.active {
+        color: #ff9900; /* Highlight current route */
+        font-weight: bold; /* Emphasize the active link */
+    }
+
+/* Button style for additional options */
+.navbar .nav-item .btn-outline-dark {
+    color: #2e2f3f;
+    border: 1px solid #2e2f3f;
+}
+
+    .navbar .nav-item .btn-outline-dark:hover {
+        background-color: #ff9900; /* Highlight button background on hover */
+        color: white; /* Ensure text contrast on hover */
+        border: 1px solid #ff9900;
+    }
+
+/* Responsive adjustments */
+@media (max-width: 767px) {
+    .navbar-nav {
+        gap: 15px; /* Reduce gap for smaller screens */
+    }
+
+    .navbar .navbar-brand {
+        font-size: 1.5rem; /* Smaller font size for brand */
+    }
+}

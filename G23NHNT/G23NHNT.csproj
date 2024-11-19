@@ -21,8 +21,14 @@
 
   <ItemGroup>
     <None Remove="Migrations\" />
+    <None Remove="Views\Search\" />
+    <None Remove="Models\ViewModel\" />
+    <None Remove="Repository\Search\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Migrations\" />
+    <Folder Include="Views\Search\" />
+    <Folder Include="Models\ViewModel\" />
+    <Folder Include="Repository\Search\" />
   </ItemGroup>
 </Project>
