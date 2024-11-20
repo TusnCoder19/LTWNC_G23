@@ -1,0 +1,240 @@
+﻿.gap-4 {
+  gap: 1rem;
+}
+
+.gap-lg-8 {
+  gap: 2rem;
+}
+
+.title3 {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.point-search {
+  left: 44%;
+  top: 93%;
+  display: none;
+}
+
+.card-img-top {
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+
+.form-inputs {
+  position: relative;
+}
+
+  .form-inputs .form-control {
+    height: 45px;
+    padding-right:45px;
+  }
+
+    .form-inputs .form-control:focus {
+      box-shadow: none;
+      border: 1px solid #000;
+    }
+
+  .form-inputs i {
+    position: absolute;
+    right: 10px;
+    font-size: 26px;
+    color: black;
+  }
+
+.main-container {
+  line-height: inherit;
+  font-style: normal;
+  box-sizing: border-box;
+  border: 0 solid #e5e7eb;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 70px;
+}
+
+.hero {
+  tab-size: 4;
+  line-height: inherit;
+  font-style: normal;
+  box-sizing: border-box;
+  border: 0 solid #e5e7eb;
+  display: grid;
+  grid-template-columns: 7fr 5fr;
+  gap: 1rem;
+  border-bottom-right-radius: 1.5rem;
+  border-bottom-left-radius: 1.5rem;
+  background-image: linear-gradient(359deg,#fff6eb 3.12%,#fff 78.88%);
+  padding: 2rem;
+}
+
+  .hero .left {
+    line-height: inherit;
+    font-style: normal;
+    box-sizing: border-box;
+    border: 0 solid #e5e7eb;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .hero .right {
+    width: 100%;
+    height: auto
+  }
+
+  .hero .search {
+    grid-column: span 2 / span 2;
+    width: 100%;
+    margin-top: 20px;
+  }
+
+.hero-title {
+  font-size: 50px;
+  font-weight: 800;
+}
+
+@media (min-width: 1024px) {
+  .main-container {
+    gap: 3rem;
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  .hero {
+    padding: 3rem;
+  }
+
+    .hero .left {
+      gap: 2rem;
+    }
+
+  .hero-title {
+    font-size: 50px;
+    font-weight: 800;
+  }
+
+ 
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1279px) {
+  .main-container {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+}
+
+.stats-container {
+  justify-content: center;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.stat-item {
+  padding: 1rem;
+  flex: 1;
+}
+
+.border-start {
+  border-left: 2px solid #ddd; /* Subtle border color */
+}
+
+.stat-number {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333; /* Dark text color for emphasis */
+  text-transform: uppercase;
+}
+
+.stat-label {
+  font-size: 1rem;
+  color: #666; /* Lighter text color for labels */
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .stats-container {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .hero-title {
+    font-size: 30px;
+  }
+
+  .stat-number {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333; /* Dark text color for emphasis */
+    text-transform: uppercase;
+  }
+
+  .stat-item {
+    padding: 0.5rem;
+  }
+
+  .hero .left {
+    grid-column: span 2 / span 2;
+  }
+
+  .hero .right {
+    grid-column: span 2 / span 2;
+    order: -1;
+  }
+}
+
+
+/* Định dạng các thẻ card */
+.card {
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+  .card:hover {
+    transform: translateY(-5px); /* Hiệu ứng nâng thẻ khi hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  }
+
+/* Định dạng ảnh trong card */
+.card-img-top {
+  border-bottom: 2px solid #ddd;
+  width: 100%;
+  height: auto;
+}
+
+/* Định dạng tiêu đề trong card */
+.card-body .card-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Định dạng văn bản trong card */
+.card-body .card-text {
+  font-size: 1rem;
+  color: #666;
+}
+
+/* Tùy chỉnh button "Tìm hiểu ngay" */
+.btn-custom {
+  background-color: #28a745; /* Màu xanh lá cây */
+  color: white;
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+
+  .btn-custom:hover {
+    background-color: #218838; /* Màu xanh lá cây đậm khi hover */
+  }

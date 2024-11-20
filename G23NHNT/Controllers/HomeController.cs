@@ -52,14 +52,19 @@ namespace G23NHNT.Controllers
             return View(viewModel);
         }
 
+        public async Task<IActionResult> Main()
+        {
+            return View();
+        }
+
         public async Task<IActionResult> Detail(int id)
         {
-           
-                var house = await _houseRepository.GetHouseWithDetailsAsync(id);
-                if (house != null)
-                {
-                    return View("HouseDetails", house);
-                }
+
+            var house = await _houseRepository.GetHouseWithDetailsAsync(id);
+            if (house != null)
+            {
+                return View("HouseDetails", house);
+            }
             return NotFound();
         }
 
