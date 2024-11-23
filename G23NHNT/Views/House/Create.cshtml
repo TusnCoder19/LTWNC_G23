@@ -1,135 +1,157 @@
 @model G23NHNT.ViewModels.HousePostViewModel
 
-<h2>Đăng bài nhà trọ mới</h2>
+@{
+    ViewData["Title"] = "Đăng bài nhà trọ mới";
+}
+
+<h2 class="text-center my-4 fw-bold text-primary">Đăng bài nhà trọ mới</h2>
+
 @if (!string.IsNullOrEmpty(ViewData["ErrorMessage"] as string))
 {
-    <div class="alert alert-danger">@ViewData["ErrorMessage"]</div>
+    <div class="alert alert-danger text-center">@ViewData["ErrorMessage"]</div>
 }
+
 <form asp-action="Create" method="post" enctype="multipart/form-data">
-    <div class="form-group">
-        <label asp-for="House.PostTitle">Tiêu đề bài đăng</label>
-        <input asp-for="House.PostTitle" class="form-control" />
-        <span asp-validation-for="House.PostTitle" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="House.NameHouse">Tên toà nhà/nhà trọ</label>
-        <input asp-for="House.NameHouse" class="form-control" />
-        <span asp-validation-for="House.NameHouse" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label>Loại nhà trọ</label>
-        <select asp-for="SelectedHouseType" asp-items="Model.HouseTypes" class="form-control">
-            <option value="">-- Chọn loại nhà trọ --</option>
-        </select>
-        <span asp-validation-for="SelectedHouseType" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="HouseDetail.Address">Địa chỉ</label>
-        <input asp-for="HouseDetail.Address" class="form-control" />
-        <span asp-validation-for="HouseDetail.Address" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="HouseDetail.Price">Giá thuê</label>
-        <input asp-for="HouseDetail.Price" class="form-control" />
-        <span asp-validation-for="HouseDetail.Price" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="HouseDetail.DienTich">Diện tích (m²)</label>
-        <input asp-for="HouseDetail.DienTich" class="form-control" />
-        <span asp-validation-for="HouseDetail.DienTich" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="HouseDetail.TienDien">Tiền điện</label>
-        <input asp-for="HouseDetail.TienDien" class="form-control" />
-        <span asp-validation-for="HouseDetail.TienDien" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="HouseDetail.TienNuoc">Tiền nước</label>
-        <input asp-for="HouseDetail.TienNuoc" class="form-control" />
-        <span asp-validation-for="HouseDetail.TienNuoc" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="HouseDetail.TienDv">Tiền dịch vụ</label>
-        <input asp-for="HouseDetail.TienDv" class="form-control" />
-        <span asp-validation-for="HouseDetail.TienDv" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="HouseDetail.Describe">Mô tả</label>
-        <textarea asp-for="HouseDetail.Describe" class="form-control"></textarea>
-        <span asp-validation-for="HouseDetail.Describe" class="text-danger"></span>
-    </div>
-
-      <div class="form-group">
-        <label asp-for="HouseDetail.SoNguoiO">Số người ở tối đa</label>
-        <input asp-for="HouseDetail.SoNguoiO" class="form-control" />
-        <span asp-validation-for="HouseDetail.SoNguoiO" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label>Trạng thái</label>
-
-        <div class="form-check">
-            <input type="radio" id="statusAvailable" name="HouseDetail.Status" class="form-check-input"
-                   value="Chưa cho thuê" @(Model.HouseDetail.Status == "Chưa cho thuê" ? "checked" : "") />
-            <label class="form-check-label" for="statusAvailable">Chưa cho thuê</label>
-        </div>
-
-        <div class="form-check">
-            <input type="radio" id="statusRented" name="HouseDetail.Status" class="form-check-input" value="Đã cho thuê"
-                   @(Model.HouseDetail.Status == "Đã cho thuê" ? "checked" : "") />
-            <label class="form-check-label" for="statusRented">Đã cho thuê</label>
-        </div>
-
-        <span asp-validation-for="HouseDetail.Status" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="HouseDetail.Image">Hình ảnh</label>
-        <input asp-for="HouseDetail.Image" type="file" class="form-control" name="imageFile" />
-        @if (!string.IsNullOrEmpty(Model.HouseDetail.Image))
-        {
-            <div class="mt-2">
-                <img src="~/@Model.HouseDetail.Image" alt="Ảnh của nhà trọ" style="max-width: 200px;" />
+    <div class="container shadow p-4 rounded" style="background-color: #f9f9f9;">
+        <!-- Tiêu đề bài đăng và tên nhà trọ -->
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="House.PostTitle" class="form-label fw-bold">Tiêu đề bài đăng</label>
+                    <input asp-for="House.PostTitle" class="form-control" placeholder="Nhập tiêu đề bài đăng" />
+                    <span asp-validation-for="House.PostTitle" class="text-danger"></span>
+                </div>
             </div>
-        }
-        <span asp-validation-for="HouseDetail.Image" class="text-danger"></span>
-    </div>
 
-    @if (Model.HouseDetail.TimePost != DateTime.MinValue)
-    {
-        <div class="form-group">
-            <label>Thời gian đăng:</label>
-            <input type="text" class="form-control" value="@Model.HouseDetail.TimePost.ToString("dd/MM/yyyy HH:mm")"
-                   readonly />
-        </div>
-    }
-
-    <div class="form-group">
-        <label>Tiện ích</label>
-        @foreach (var amenity in Model.Amenities)
-        {
-            <div class="form-check">
-                <input type="checkbox" name="SelectedAmenities" value="@amenity.IdAmenity" class="form-check-input"
-                       @(Model.SelectedAmenities.Contains(amenity.IdAmenity) ? "checked" : "") />
-                <label class="form-check-label">@amenity.Name</label>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="House.NameHouse" class="form-label fw-bold">Tên toà nhà/nhà trọ</label>
+                    <input asp-for="House.NameHouse" class="form-control" placeholder="Nhập tên toà nhà" />
+                    <span asp-validation-for="House.NameHouse" class="text-danger"></span>
+                </div>
             </div>
-        }
-    </div>
+        </div>
 
-    <button type="submit" class="btn btn-primary">Đăng bài</button>
+        <!-- Loại nhà trọ và địa chỉ -->
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-label fw-bold">Loại nhà trọ</label>
+                    <select asp-for="SelectedHouseType" asp-items="Model.HouseTypes" class="form-control">
+                        <option value="">-- Chọn loại nhà trọ --</option>
+                    </select>
+                    <span asp-validation-for="SelectedHouseType" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="HouseDetail.Address" class="form-label fw-bold">Địa chỉ</label>
+                    <input asp-for="HouseDetail.Address" class="form-control" placeholder="Nhập địa chỉ nhà trọ" />
+                    <span asp-validation-for="HouseDetail.Address" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Giá thuê, diện tích, tiền điện và tiền nước -->
+        <div class="row mb-3">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label asp-for="HouseDetail.Price" class="form-label fw-bold">Giá thuê</label>
+                    <div class="input-group">
+                        <input asp-for="HouseDetail.Price" class="form-control" placeholder="Nhập giá thuê" />
+                        <span class="input-group-text">VNĐ</span>
+                    </div>
+                    <span asp-validation-for="HouseDetail.Price" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label asp-for="HouseDetail.DienTich" class="form-label fw-bold">Diện tích (m²)</label>
+                    <input asp-for="HouseDetail.DienTich" class="form-control" placeholder="Nhập diện tích" />
+                    <span asp-validation-for="HouseDetail.DienTich" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label asp-for="HouseDetail.TienDien" class="form-label fw-bold">Tiền điện</label>
+                    <input asp-for="HouseDetail.TienDien" class="form-control" placeholder="Nhập tiền điện" />
+                    <span asp-validation-for="HouseDetail.TienDien" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label asp-for="HouseDetail.TienNuoc" class="form-label fw-bold">Tiền nước</label>
+                    <input asp-for="HouseDetail.TienNuoc" class="form-control" placeholder="Nhập tiền nước" />
+                    <span asp-validation-for="HouseDetail.TienNuoc" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Preview hình ảnh -->
+        <div class="row mb-3">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label asp-for="HouseDetail.Image" class="form-label fw-bold">Hình ảnh</label>
+                    <input asp-for="HouseDetail.Image" type="file" class="form-control" name="imageFile" onchange="previewImage(this)" />
+                    <div id="imagePreview" class="mt-2">
+                        @if (!string.IsNullOrEmpty(Model.HouseDetail.Image))
+                        {
+                            <img src="~/@Model.HouseDetail.Image" alt="Ảnh của nhà trọ" class="img-thumbnail" />
+                        }
+                    </div>
+                    <span asp-validation-for="HouseDetail.Image" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Các tiện ích -->
+        <div class="row mb-3">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="fw-bold">Tiện ích</label>
+                    <div class="d-flex flex-wrap gap-2">
+                        @foreach (var amenity in Model.Amenities)
+                        {
+                            <div class="form-check">
+                                <input type="checkbox" name="SelectedAmenities" value="@amenity.IdAmenity" class="form-check-input"
+                                @(Model.SelectedAmenities.Contains(amenity.IdAmenity) ? "checked" : "") />
+                                <label class="form-check-label">@amenity.Name</label>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Nút đăng bài -->
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <button type="submit" class="btn btn-primary btn-lg px-5 shadow">Đăng bài</button>
+            </div>
+        </div>
+    </div>
 </form>
 
 @section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+    <script>
+        function previewImage(input) {
+            const preview = document.getElementById('imagePreview');
+            preview.innerHTML = "";
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.className = "img-thumbnail";
+                    preview.appendChild(img);
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+    @await Html.PartialAsync("_ValidationScriptsPartial")
 }
