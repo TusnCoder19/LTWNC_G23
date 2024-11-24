@@ -11,5 +11,6 @@ namespace G23NHNT.Repositories
         Task AddAsync(Amenity amenity);
         Task UpdateAsync(Amenity amenity);
         Task DeleteAsync(int id);
+        Task<List<Amenity>> GetAmenitiesByIdsAsync(List<int> amenityIds);
     }
 }

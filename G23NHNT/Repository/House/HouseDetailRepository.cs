@@ -10,10 +10,12 @@ namespace G23NHNT.Repositories
     public class HouseDetailRepository : IHouseDetailRepository
     {
         private readonly G23_NHNTContext _context;
+        private readonly ILogger<HouseDetailRepository> _logger;
 
-        public HouseDetailRepository(G23_NHNTContext context)
+        public HouseDetailRepository(G23_NHNTContext context, ILogger<HouseDetailRepository> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         public async Task<IEnumerable<HouseDetail>> GetAllHouseDetailsAsync()
@@ -62,18 +64,33 @@ namespace G23NHNT.Repositories
         {
             try
             {
+                // Ensure the entity is attached to the context
                 if (_context.Entry(houseDetail).State == EntityState.Detached)
                 {
                     _context.HouseDetails.Attach(houseDetail);
                 }
+
+                // Mark the entity as modified to track changes
                 _context.Entry(houseDetail).State = EntityState.Modified;
 
+                // Save changes to the database and get the number of affected rows
                 int affectedRows = await _context.SaveChangesAsync();
-                Console.WriteLine($"Đã cập nhật {affectedRows} bản ghi trong cơ sở dữ liệu.");
+
+                // Log the number of affected rows
+                if (affectedRows > 0)
+                {
+                    _logger.LogInformation($"Successfully updated {affectedRows} record(s) in the database.");
+                }
+                else
+                {
+                    _logger.LogWarning("No records were updated in the database.");
+                }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error updating HouseDetail: {ex.Message}");
+                // Log the error in case of failure
+                _logger.LogError($"Error updating HouseDetail: {ex.Message}");
+                throw; // Rethrow the exception so it can be handled by the caller if needed
             }
         }
 

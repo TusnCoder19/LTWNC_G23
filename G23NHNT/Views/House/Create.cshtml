@@ -4,7 +4,7 @@
     ViewData["Title"] = "Đăng bài nhà trọ mới";
 }
 
-<h2 class="text-center my-4 fw-bold text-primary">Đăng bài nhà trọ mới</h2>
+<h2 class="text-center my-4 fw-bold text-primary" style="margin-top:80px !important">Đăng bài nhà trọ mới</h2>
 
 @if (!string.IsNullOrEmpty(ViewData["ErrorMessage"] as string))
 {
@@ -53,6 +53,32 @@
             </div>
         </div>
 
+        <!-- Trạng thái và tiền dịch vụ -->
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="form-label fw-bold">Trạng thái</label>
+                    <select asp-for="HouseDetail.Status" class="form-control">
+                        <option value="">-- Chọn trạng thái --</option>
+                        <option value="Còn trống">Có sẵn</option>
+                        <option value="Đã cho thuê">Đã thuê</option>
+                    </select>
+                    <span asp-validation-for="HouseDetail.Status" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="HouseDetail.TienDv" class="form-label fw-bold">Tiền dịch vụ</label>
+                    <div class="input-group">
+                        <input asp-for="HouseDetail.TienDv" class="form-control" placeholder="Nhập tiền dịch vụ" />
+                        <span class="input-group-text">VNĐ</span>
+                    </div>
+                    <span asp-validation-for="HouseDetail.TienDv" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
         <!-- Giá thuê, diện tích, tiền điện và tiền nước -->
         <div class="row mb-3">
             <div class="col-md-3">
@@ -95,6 +121,15 @@
         <div class="row mb-3">
             <div class="col-md-12">
                 <div class="form-group">
+                    <label asp-for="HouseDetail.PhoneNumber" class="form-label fw-bold">Liên hệ</label>
+                    <input asp-for="HouseDetail.PhoneNumber" class="form-control" placeholder="Nhập số điện thoại" />
+                    <span asp-validation-for="HouseDetail.PhoneNumber" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-12">
+                <div class="form-group">
                     <label asp-for="HouseDetail.Image" class="form-label fw-bold">Hình ảnh</label>
                     <input asp-for="HouseDetail.Image" type="file" class="form-control" name="imageFile" onchange="previewImage(this)" />
                     <div id="imagePreview" class="mt-2">
@@ -107,7 +142,24 @@
                 </div>
             </div>
         </div>
+        <!-- Số người ở và mô tả -->
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="HouseDetail.SoNguoiO" class="form-label fw-bold">Số người ở</label>
+                    <input asp-for="HouseDetail.SoNguoiO" class="form-control" placeholder="Nhập số người ở" />
+                    <span asp-validation-for="HouseDetail.SoNguoiO" class="text-danger"></span>
+                </div>
+            </div>
 
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="HouseDetail.Describe" class="form-label fw-bold">Mô tả</label>
+                    <textarea asp-for="HouseDetail.Describe" class="form-control" placeholder="Nhập mô tả về nhà trọ" rows="4"></textarea>
+                    <span asp-validation-for="HouseDetail.Describe" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
         <!-- Các tiện ích -->
         <div class="row mb-3">
             <div class="col-md-12">
@@ -118,7 +170,7 @@
                         {
                             <div class="form-check">
                                 <input type="checkbox" name="SelectedAmenities" value="@amenity.IdAmenity" class="form-check-input"
-                                @(Model.SelectedAmenities.Contains(amenity.IdAmenity) ? "checked" : "") />
+                                       @(Model.SelectedAmenities.Contains(amenity.IdAmenity) ? "checked" : "") />
                                 <label class="form-check-label">@amenity.Name</label>
                             </div>
                         }
@@ -126,6 +178,7 @@
                 </div>
             </div>
         </div>
+
 
         <!-- Nút đăng bài -->
         <div class="row">
@@ -137,8 +190,7 @@
 </form>
 
 @section Scripts {
-    <script>
-        function previewImage(input) {
+    <script>function previewImage(input) {
             const preview = document.getElementById('imagePreview');
             preview.innerHTML = "";
             if (input.files && input.files[0]) {
@@ -151,7 +203,6 @@
                 };
                 reader.readAsDataURL(input.files[0]);
             }
-        }
-    </script>
+        }</script>
     @await Html.PartialAsync("_ValidationScriptsPartial")
 }

@@ -4,6 +4,7 @@ using G23NHNT.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace G23NHNT.Migrations
 {
     [DbContext(typeof(G23_NHNTContext))]
-    partial class G23_NHNTContextModelSnapshot : ModelSnapshot
+    [Migration("20241124103810_CreateManyToManyRelationBetweenHouseAndAmenity")]
+    partial class CreateManyToManyRelationBetweenHouseAndAmenity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,6 +23,21 @@ namespace G23NHNT.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("AmenityHouse", b =>
+                {
+                    b.Property<int>("IdAmenity")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdHouse")
+                        .HasColumnType("int");
+
+                    b.HasKey("IdAmenity", "IdHouse");
+
+                    b.HasIndex("IdHouse");
+
+                    b.ToTable("AmenityHouse");
+                });
 
             modelBuilder.Entity("G23NHNT.Models.Account", b =>
                 {
@@ -78,11 +95,6 @@ namespace G23NHNT.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdHouse"), 1L, 1);
 
-                    b.Property<string>("AmenityIds")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("AmenityIds");
-
                     b.Property<int>("HouseTypeId")
                         .HasColumnType("int");
 
@@ -134,11 +146,6 @@ namespace G23NHNT.Migrations
                     b.Property<string>("Image")
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
@@ -231,6 +238,21 @@ namespace G23NHNT.Migrations
                     b.HasIndex("IdUser");
 
                     b.ToTable("Reviews");
+                });
+
+            modelBuilder.Entity("AmenityHouse", b =>
+                {
+                    b.HasOne("G23NHNT.Models.Amenity", null)
+                        .WithMany()
+                        .HasForeignKey("IdAmenity")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("G23NHNT.Models.House", null)
+                        .WithMany()
+                        .HasForeignKey("IdHouse")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("G23NHNT.Models.House", b =>

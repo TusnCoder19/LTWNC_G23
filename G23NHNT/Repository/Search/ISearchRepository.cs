@@ -8,6 +8,6 @@ namespace G23NHNT.Repositories
 {
     public interface ISearchRepository
     {
-        Task<IEnumerable<House>> GetFilteredHousesAsync(string searchString, string priceRange, string sortBy, string roomType, List<string> amenities);
+        Task<IEnumerable<House>> GetFilteredHousesAsync(string searchString, string priceRange, string sortBy, string roomType, string[] amenities);
     }
 }

@@ -4,6 +4,7 @@ using G23NHNT.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace G23NHNT.Migrations
 {
     [DbContext(typeof(G23_NHNTContext))]
-    partial class G23_NHNTContextModelSnapshot : ModelSnapshot
+    [Migration("20241124123703_CreateManyToManyRelationBetweenHouseAndAmenity-4")]
+    partial class CreateManyToManyRelationBetweenHouseAndAmenity4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -78,7 +80,10 @@ namespace G23NHNT.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdHouse"), 1L, 1);
 
-                    b.Property<string>("AmenityIds")
+                    b.Property<int?>("AmenityIdAmenity")
+                        .HasColumnType("int");
+
+                    b.Property<string>("AmenityIdsJson")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("AmenityIds");
@@ -100,6 +105,8 @@ namespace G23NHNT.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.HasKey("IdHouse");
+
+                    b.HasIndex("AmenityIdAmenity");
 
                     b.HasIndex("HouseTypeId");
 
@@ -134,11 +141,6 @@ namespace G23NHNT.Migrations
                     b.Property<string>("Image")
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
@@ -235,6 +237,10 @@ namespace G23NHNT.Migrations
 
             modelBuilder.Entity("G23NHNT.Models.House", b =>
                 {
+                    b.HasOne("G23NHNT.Models.Amenity", null)
+                        .WithMany("Houses")
+                        .HasForeignKey("AmenityIdAmenity");
+
                     b.HasOne("G23NHNT.Models.HouseType", "HouseType")
                         .WithMany()
                         .HasForeignKey("HouseTypeId")
@@ -285,6 +291,11 @@ namespace G23NHNT.Migrations
                     b.Navigation("Houses");
 
                     b.Navigation("Reviews");
+                });
+
+            modelBuilder.Entity("G23NHNT.Models.Amenity", b =>
+                {
+                    b.Navigation("Houses");
                 });
 
             modelBuilder.Entity("G23NHNT.Models.House", b =>

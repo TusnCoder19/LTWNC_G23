@@ -47,8 +47,17 @@ namespace G23NHNT.Models
 
         public DateTime TimePost { get; set; }
 
+
+        [Required(ErrorMessage = "Số điện thoại là bắt buộc.")]
+        [Phone(ErrorMessage = "Số điện thoại không hợp lệ.")]
+        [StringLength(15, ErrorMessage = "Số điện thoại không được quá 15 ký tự.")]
+        public string PhoneNumber { get; set; } = null!;
+
         // Foreign Key for House
         [ForeignKey("IdHouse")]
         public virtual House? IdHouseNavigation { get; set; }
+
+        [NotMapped]
+        public IFormFile? ImageFile { get; set; }
     }
 }

@@ -1,5 +1,4 @@
-﻿// HouseRepository.cs
-using G23NHNT.Models;
+﻿using G23NHNT.Models;
 using G23NHNT.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -16,13 +15,13 @@ namespace G23NHNT.Repositories
         {
             _context = context;
         }
-        public async Task<IEnumerable<House>> GetFilteredHousesAsync(string searchString, string priceRange, string sortBy, string roomType, List<string> amenities)
+
+        public async Task<IEnumerable<House>> GetFilteredHousesAsync(string searchString, string priceRange, string sortBy, string roomType,string[] amenities)
         {
             var query = _context.Houses
-                .Include(h => h.HouseDetails)
-                .Include(h => h.HouseType)
-                .Include(h => h.IdAmenities)
-                .Include(h => h.IdUserNavigation)
+                .Include(h => h.HouseDetails)  // Include HouseDetails for filtering
+                .Include(h => h.HouseType)    // Include HouseType for filtering by room type
+                .Include(h => h.IdUserNavigation)  // Include user info (if necessary)
                 .AsQueryable();
 
             // Search by keyword
@@ -49,22 +48,7 @@ namespace G23NHNT.Repositories
             // Filter by room type
             if (!string.IsNullOrEmpty(roomType))
             {
-                Console.WriteLine($"Filtering by room type: {roomType}");
-
-                var houseTypes = query.Select(h => h.HouseType.Name).ToList();
-                Console.WriteLine("Available room types:");
-                foreach (var type in houseTypes)
-                {
-                    Console.WriteLine(type);
-                }
-
                 query = query.Where(h => h.HouseType.Name.ToLower() == roomType.ToLower());
-            }
-
-            // Filter by amenities
-            if (amenities != null && amenities.Any())
-            {
-                query = query.Where(h => h.IdAmenities.Any(a => amenities.Contains(a.Name)));
             }
 
             // Sorting
@@ -78,7 +62,14 @@ namespace G23NHNT.Repositories
                 };
             }
 
-            return await query.ToListAsync();
+            var housesList = await query.ToListAsync();
+            if (amenities != null && amenities.Any())
+            {
+                housesList = housesList
+                    .Where(h => amenities.All(a => h.AmenityIdsArray.Contains(int.Parse(a))))  // Check if house contains all amenities
+                    .ToList();
+            }
+            return housesList;
         }
     }
 }

@@ -3,6 +3,7 @@ using G23NHNT.Repositories;
 using G23NHNT.ViewModels;
 using System;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace G23NHNT.Services
 {
@@ -23,27 +24,26 @@ namespace G23NHNT.Services
         {
             try
             {
+                // Create the House entity
                 await _houseRepository.AddAsync(model.House);
 
+                // Link the HouseDetail entity
                 model.HouseDetail.IdHouse = model.House.IdHouse;
                 await _houseDetailRepository.AddAsync(model.HouseDetail);
 
-                foreach (var amenityId in model.SelectedAmenities)
-                {
-                    var amenity = await _amenityRepository.GetAmenityByIdAsync(amenityId);
-                    if (amenity != null)
-                    {
-                        model.House.IdAmenities.Add(amenity);
-                    }
-                }
-                await _houseRepository.UpdateAsync(model.House);
+                // Add selected amenity IDs to the house
+                model.House.AmenityIdsArray = model.SelectedAmenities;
+       
 
-                return true; 
+               // Update the House entity with the selected amenity IDs
+               await _houseRepository.UpdateAsync(model.House);
+
+                return true;
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error creating house: {ex.Message}");
-                return false; 
+                return false;
             }
         }
     }

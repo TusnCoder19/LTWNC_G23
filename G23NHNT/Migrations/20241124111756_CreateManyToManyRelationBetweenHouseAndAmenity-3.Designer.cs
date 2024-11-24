@@ -4,6 +4,7 @@ using G23NHNT.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace G23NHNT.Migrations
 {
     [DbContext(typeof(G23_NHNTContext))]
-    partial class G23_NHNTContextModelSnapshot : ModelSnapshot
+    [Migration("20241124111756_CreateManyToManyRelationBetweenHouseAndAmenity-3")]
+    partial class CreateManyToManyRelationBetweenHouseAndAmenity3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -70,6 +72,31 @@ namespace G23NHNT.Migrations
                     b.ToTable("Amenities");
                 });
 
+            modelBuilder.Entity("G23NHNT.Models.AmenityHouse", b =>
+                {
+                    b.Property<int>("IdAmenity")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdHouse")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("AmenityIdAmenity")
+                        .HasColumnType("int");
+
+                    b.Property<int>("HouseIdHouse")
+                        .HasColumnType("int");
+
+                    b.HasKey("IdAmenity", "IdHouse");
+
+                    b.HasIndex("AmenityIdAmenity");
+
+                    b.HasIndex("HouseIdHouse");
+
+                    b.HasIndex("IdHouse");
+
+                    b.ToTable("AmenityHouse");
+                });
+
             modelBuilder.Entity("G23NHNT.Models.House", b =>
                 {
                     b.Property<int>("IdHouse")
@@ -77,11 +104,6 @@ namespace G23NHNT.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdHouse"), 1L, 1);
-
-                    b.Property<string>("AmenityIds")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("AmenityIds");
 
                     b.Property<int>("HouseTypeId")
                         .HasColumnType("int");
@@ -134,11 +156,6 @@ namespace G23NHNT.Migrations
                     b.Property<string>("Image")
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
@@ -233,6 +250,35 @@ namespace G23NHNT.Migrations
                     b.ToTable("Reviews");
                 });
 
+            modelBuilder.Entity("G23NHNT.Models.AmenityHouse", b =>
+                {
+                    b.HasOne("G23NHNT.Models.Amenity", null)
+                        .WithMany("AmenityHouses")
+                        .HasForeignKey("AmenityIdAmenity");
+
+                    b.HasOne("G23NHNT.Models.House", "House")
+                        .WithMany()
+                        .HasForeignKey("HouseIdHouse")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("G23NHNT.Models.Amenity", "Amenity")
+                        .WithMany()
+                        .HasForeignKey("IdAmenity")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("G23NHNT.Models.House", null)
+                        .WithMany("AmenityHouses")
+                        .HasForeignKey("IdHouse")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Amenity");
+
+                    b.Navigation("House");
+                });
+
             modelBuilder.Entity("G23NHNT.Models.House", b =>
                 {
                     b.HasOne("G23NHNT.Models.HouseType", "HouseType")
@@ -287,8 +333,15 @@ namespace G23NHNT.Migrations
                     b.Navigation("Reviews");
                 });
 
+            modelBuilder.Entity("G23NHNT.Models.Amenity", b =>
+                {
+                    b.Navigation("AmenityHouses");
+                });
+
             modelBuilder.Entity("G23NHNT.Models.House", b =>
                 {
+                    b.Navigation("AmenityHouses");
+
                     b.Navigation("HouseDetails");
 
                     b.Navigation("Reviews");

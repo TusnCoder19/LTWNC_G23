@@ -35,10 +35,13 @@ public class DetailController : ControllerBase
             return NotFound(new { message = "Không tìm thấy nhà trọ." });
 
         var reviews = await _reviewRepository.GetReviewsByHouseIdAsync(id);
+        var amenities = await _amenityRepository.GetAmenitiesByIdsAsync(house.AmenityIdsArray);
+        
         return Ok(new
         {
             House = house,
             Reviews = reviews,
+            Amenities = amenities,
         });
     }
 

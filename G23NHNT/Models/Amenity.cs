@@ -8,7 +8,6 @@ namespace G23NHNT.Models
     {
         public Amenity()
         {
-            IdHouses = new HashSet<House>();
         }
 
         [Key]
@@ -17,8 +16,5 @@ namespace G23NHNT.Models
         [Required(ErrorMessage = "Tên tiện nghi là bắt buộc.")]
         [StringLength(100, ErrorMessage = "Tên tiện nghi phải dưới 100 ký tự.")]
         public string Name { get; set; } = null!;
-
-        // Navigation property
-        public virtual ICollection<House> IdHouses { get; set; }
     }
 }
