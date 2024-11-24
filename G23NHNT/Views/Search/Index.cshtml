@@ -1,5 +1,4 @@
 ﻿@model G23NHNT.Models.SearchViewModel
-
 @{
     ViewData["Title"] = "Tìm kiếm phòng trọ";
 }
@@ -59,13 +58,17 @@
                                 <label for="amenities" class="form-label">Tiện nghi</label>
                                 @foreach (var amenity in Model.Amenities)
                                 {
+                                    // Safely cast ViewBag.SelectedAmenities to string[]
+                                    var selectedAmenities = (ViewBag.SelectedAmenities as string[] ?? Array.Empty<string>()).ToList();
+
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="amenities" value="@amenity.Name"
-                                               @(ViewBag.SelectedAmenities != null && ViewBag.SelectedAmenities.Contains(amenity.Name) ? "checked" : "")>
+                                        <input class="form-check-input" type="checkbox" name="amenities" value="@amenity.IdAmenity"
+                                               @(selectedAmenities.Contains(amenity.IdAmenity.ToString()) ? "checked" : "")>
                                         <label class="form-check-label">@amenity.Name</label>
                                     </div>
                                 }
                             </div>
+
                         </div>
 
                         <!-- Submit Button -->
@@ -127,9 +130,11 @@
                             <label for="amenities" class="form-label">Tiện nghi</label>
                             @foreach (var amenity in Model.Amenities)
                             {
+                                var selectedAmenities = (ViewBag.SelectedAmenities as string[] ?? Array.Empty<string>()).ToList();
+
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="amenities" value="@amenity.Name"
-                                           @(ViewBag.SelectedAmenities != null && ViewBag.SelectedAmenities.Contains(amenity.Name) ? "checked" : "")>
+                                    <input class="form-check-input" type="checkbox" name="amenities" value="@amenity.IdAmenity"
+                                           @(selectedAmenities.Contains(amenity.IdAmenity.ToString()) ? "checked" : "")>
                                     <label class="form-check-label">@amenity.Name</label>
                                 </div>
                             }
@@ -242,8 +247,6 @@
     </div>
 </div>
 
-<script>
-    function openHouseDetail(houseId) {
+<script>function openHouseDetail(houseId) {
         window.location.href = `/Home/Detail/${houseId}`
-    }
-</script>
+    }</script>

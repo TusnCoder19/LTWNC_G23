@@ -1,4 +1,5 @@
-@model G23NHNT.Models.House
+@model G23NHNT.ViewModels.HouseDetailViewModel
+
 
 <head>
     <meta charset="UTF-8">
@@ -11,16 +12,16 @@
     <h3 class="section-title">Thông Tin Chi Tiết</h3>
     <div class="detail-content">
         <div class="house-info">
-            <p><strong>Tên nhà:</strong> @Model.NameHouse</p>
-            <p><strong>Loại nhà trọ : </strong> @Model.HouseType.Name</p>
+            <p><strong>Tên nhà:</strong> @Model.House.NameHouse</p>
+            <p><strong>Loại nhà trọ : </strong> @Model.House.HouseType.Name</p>
             <ul class="detail-list">
-                @foreach (var detail in Model.HouseDetails)
+                @foreach (var detail in Model.House.HouseDetails)
                 {
                     <li class="detail-item">
                         <p><strong>Địa Chỉ:</strong> @detail.Address</p>
                         <p>
                             <strong>Giá:</strong> @detail.Price.ToString("#,0", new
-                        System.Globalization.CultureInfo("vi-VN")) VND
+System.Globalization.CultureInfo("vi-VN")) VND
                         </p>
                         <p><strong>Diện Tích:</strong> @detail.DienTich m²</p>
                         <p><strong>Tiền Điện:</strong> @detail.TienDien VND</p>
@@ -29,14 +30,16 @@
                         <p><strong>Mô Tả:</strong> @detail.Describe</p>
                         <p><strong>Trạng Thái:</strong> @detail.Status</p>
                         <p><strong>Ngày Đăng:</strong> @detail.TimePost.ToString("dd/MM/yyyy")</p>
-                        <p><strong>Số điện thoại:</strong> @Model.IdUserNavigation?.PhoneNumber</p>
+                        <p><strong>Số điện thoại:</strong> @Model.House.HouseDetails.FirstOrDefault().PhoneNumber</p>
+                        <p><strong>Số người ở tối đa:</strong> @Model.House.HouseDetails.FirstOrDefault().SoNguoiO</p>
+
                     </li>
                 }
 
             </ul>
         </div>
         <div class="image-section">
-            @foreach (var detail in Model.HouseDetails)
+            @foreach (var detail in Model.House.HouseDetails)
             {
                 <img src="@detail.Image" alt="Hình ảnh" class="detail-image" />
             }
@@ -45,7 +48,7 @@
 
     <h3 class="section-title">Tiện Ích</h3>
     <ul class="amenities-list">
-        @foreach (var amenity in Model.IdAmenities)
+        @foreach (var amenity in Model.Amenities)
         {
             <li class="amenity-item">@amenity.Name</li>
         }
@@ -53,10 +56,10 @@
 
     <h3 class="section-title">Đánh giá:</h3>
     <div class="review-section">
-        @if (Model.Reviews != null && Model.Reviews.Any())
+        @if (Model.House.Reviews != null && Model.House.Reviews.Any())
         {
             <ul class="review-list">
-                @foreach (var review in Model.Reviews)
+                @foreach (var review in Model.House.Reviews)
                 {
                     <li class="review-item">
                         <strong>@review.IdUserNavigation.UserName</strong>: @review.Content.ToString()
@@ -72,7 +75,7 @@
         }
     </div>
 
-    <div class="review-form" data-house-id="@Model?.IdHouse">
+    <div class="review-form" data-house-id="@Model?.House.IdHouse">
         <label for="Rating">Đánh giá:</label>
         <div class="star-rating">
             <input type="radio" name="rating" id="star5" value="5"><label for="star5" title="5 sao"></label>

@@ -8,7 +8,7 @@
         <thead>
             <tr>
                 <th hidden>ID</th>
-                <th>Tên nhà trọ</th>
+                <th>Bài đăng</th>
                 <th>Địa chỉ</th>
                 <th>Giá</th>
                 <th>Hành động</th>
@@ -19,16 +19,20 @@
             {
                 <tr>
                     <td hidden>@house.IdHouse</td>
-                    <td>@house.NameHouse</td>
+                    <td>@house.PostTitle</td>
                     <td>@house.HouseDetails.FirstOrDefault()?.Address</td>
-                    <td>@house.HouseDetails.FirstOrDefault()?.Price.ToString("#,0", new
-                                 System.Globalization.CultureInfo("vi-VN")) VND</td>
                     <td>
-                        <button class="btn btn-view-detail" onclick="viewDetail(@house.IdHouse, 'house')">Xem chi
-                            tiết</button>
-                        <button class="btn btn-warning" onclick="editItem(@house.IdHouse, 'house')">Sửa</button>
-                        <button class="btn btn-danger" onclick="deleteHouse(@house.IdHouse)">Xóa</button>
-                    </td>
+                        @house.HouseDetails.FirstOrDefault()?.Price.ToString("#,0", new
+                             System.Globalization.CultureInfo("vi-VN")) VND
+                </td>
+                <td>
+                    <button class="btn btn-view-detail" onclick="viewDetail(@house.IdHouse, 'house')">
+                        Xem chi
+                        tiết
+                    </button>
+                    <button class="btn btn-warning" onclick="editItem(@house.IdHouse, 'house')">Sửa</button>
+                    <button class="btn btn-danger" onclick="deleteHouse(@house.IdHouse)">Xóa</button>
+                </td>
                 </tr>
             }
         </tbody>
@@ -50,16 +54,9 @@
                 .catch(() => alert('Đã xảy ra lỗi khi xử lý yêu cầu.'));
         }
         function editItem(id, type) {
-            const url = type === 'house' ? `/QuanLi/EditHouse?id=${id}` : `/QuanLi/EditRoom?id=${id}`;
-            fetch(url, { method: 'GET' })
-                .then(response => {
-                    if (response.ok) {
+            const url = `/QuanLi/EditHouse?id=${id}` ;
                         window.location.href = url;
-                    } else {
-                        alert('Không thể tải trang chỉnh sửa. Vui lòng thử lại.');
-                    }
-                })
-                .catch(() => alert('Đã xảy ra lỗi khi xử lý yêu cầu.'));
+
         }
 
         // Hàm gửi yêu cầu "Xóa" và chuyển hướng

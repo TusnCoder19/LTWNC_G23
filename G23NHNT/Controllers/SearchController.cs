@@ -21,7 +21,7 @@ namespace G23NHNT.Controllers
             _houseTypeRepository = houseTypeRepository;
         }
 
-        public async Task<IActionResult> Index(string searchString, string priceRange, string sortBy, string roomType, List<string> amenities)
+        public async Task<IActionResult> Index(string searchString, string priceRange, string sortBy, string roomType, [FromQuery] string[] amenities = null)
         {
             // Get the amenities and room types from the repository
             var amenitiesList = (await _amenityRepository.GetAllAmenitiesAsync()).ToList();

@@ -27,6 +27,13 @@ namespace G23NHNT.Repositories
                 .FirstOrDefaultAsync(a => a.IdAmenity == id);
         }
 
+        public async Task<List<Amenity>> GetAmenitiesByIdsAsync(List<int> amenityIds)
+        {
+            return await _context.Amenities
+                .Where(a => amenityIds.Contains(a.IdAmenity))
+                .ToListAsync();
+        }
+
         public async Task AddAsync(Amenity amenity)
         {
             try
