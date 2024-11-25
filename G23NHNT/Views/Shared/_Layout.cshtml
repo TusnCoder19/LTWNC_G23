@@ -17,6 +17,7 @@
 <body>
     @{
         var userName = Context.Session.GetString("UserName");
+        var userRole = Context.Session.GetInt32("Role");
     }
 
     @if (!(ViewData["Title"]?.ToString() == "" || ViewData["Title"]?.ToString() == ""))
@@ -51,7 +52,7 @@
                                     <a class="nav-link" asp-controller="Account" asp-action="Register">Đăng ký</a>
                                 </li>
                             }
-                            else
+                            else if(userRole==1)
                             {
                                 <li class="nav-item">
                                     <span class="nav-link text-muted">Xin chào, @userName!</span>
@@ -62,6 +63,33 @@
                                 <li class="nav-item">
                                     <a asp-action="ListHouseRoom" asp-controller="QuanLi" asp-route-userId="@ViewBag.userId" class="nav-link">Quản lí bài đăng</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="ChangeAccount" asp-action="Update">Sửa tài khoản</a>
+                                </li>
+                               @*  <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Cau1" asp-action="Index">Câu1</a>
+                                </li> *@
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Account" asp-action="Logout">Logout</a>
+                                </li>
+                            }
+                            else if (userRole == 2)
+                            {
+                                <li class="nav-item">
+                                    <span class="nav-link text-muted">Xin chào, @userName!</span>
+                                </li>
+                                @* <li class="nav-item">
+                                    <a asp-action="Create" asp-controller="House" class="nav-link">Cung cấp thông tin nhà trọ</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-action="ListHouseRoom" asp-controller="QuanLi" asp-route-userId="@ViewBag.userId" class="nav-link">Quản lí bài đăng</a>
+                                </li> *@
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="ChangeAccount" asp-action="Update">Sửa tài khoản</a>
+                                </li>
+                               @*  <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Cau1" asp-action="Index">Câu1</a>
+                                </li> *@
                                 <li class="nav-item">
                                     <a class="nav-link" asp-controller="Account" asp-action="Logout">Logout</a>
                                 </li>
