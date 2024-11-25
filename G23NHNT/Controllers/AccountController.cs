@@ -31,6 +31,7 @@ namespace G23_NHNT.Controllers
             {
                 HttpContext.Session.SetInt32("UserId", user.IdUser);
                 HttpContext.Session.SetString("UserName", user.UserName);
+                HttpContext.Session.SetInt32("Role", user.Role);
                 var claims = new List<Claim>
                 {
                     new Claim(ClaimTypes.Name, user.UserName),
