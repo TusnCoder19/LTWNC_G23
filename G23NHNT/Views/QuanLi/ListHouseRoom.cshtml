@@ -20,9 +20,9 @@
                 <tr>
                     <td hidden>@house.IdHouse</td>
                     <td>@house.PostTitle</td>
-                    <td>@house.HouseDetails.FirstOrDefault()?.Address</td>
+                    <td>@house.HouseDetails?.Address</td>
                     <td>
-                        @house.HouseDetails.FirstOrDefault()?.Price.ToString("#,0", new
+                        @house.HouseDetails?.Price.ToString("#,0", new
                              System.Globalization.CultureInfo("vi-VN")) VND
                 </td>
                 <td>

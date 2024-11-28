@@ -181,21 +181,21 @@
                                          loading="lazy"
                                          decoding="async"
                                          data-nimg="fill"
-                                         src="@house.HouseDetails.FirstOrDefault()?.Image" alt="@house.NameHouse" class="img-fluid rounded"
+                                         src="@house.HouseDetails?.Image" alt="@house.NameHouse" class="img-fluid rounded"
                                          style="position: absolute; height: 100%; width: 100%; inset: 0px; object-fit: cover; color: transparent;">
                                 </div>
                                 <div class="content-wrapper">
                                     <h2 class="title truncate">@house.PostTitle</h2>
 
                                     <div class="price">
-                                        Từ @house.HouseDetails.FirstOrDefault()?.Price.ToString("#,0", new System.Globalization.CultureInfo("vi-VN")) VND&nbsp;đ/tháng
+                                        Từ @house.HouseDetails?.Price.ToString("#,0", new System.Globalization.CultureInfo("vi-VN")) VND&nbsp;đ/tháng
                                     </div>
 
                                     <div class="info-section">
                                         <div class="icon-wrapper">
                                             <i style="color: #0F7AAF" class="bi bi-geo-alt-fill icon-img"></i>
                                         </div>
-                                        <div class="address truncate">@house.HouseDetails.FirstOrDefault()?.Address</div>
+                                        <div class="address truncate">@house.HouseDetails?.Address</div>
                                     </div>
 
                                     @*<div class="info-section">
@@ -217,13 +217,13 @@
                                             <div class="icon-wrapper">
                                                 <i style="color: gray" class="bi bi-aspect-ratio icon-img"></i>
                                             </div>
-                                            <div>@house.HouseDetails.FirstOrDefault()?.DienTich m²</div>
+                                            <div>@house.HouseDetails?.DienTich m²</div>
                                         </div>
                                         <div class="detail-item">
                                             <div class="icon-wrapper">
                                                 <i tyle="color: black" class="bi bi-person-check-fill icon-img"></i>
                                             </div>
-                                            <div>@house.HouseDetails.FirstOrDefault().SoNguoiO</div>
+                                            <div>@house.HouseDetails.SoNguoiO</div>
                                         </div>
                                     </div>
 
@@ -231,7 +231,7 @@
                                         <div class="icon-wrapper">
                                             <i class="bi bi-calendar3"></i>
                                         </div>
-                                        <div class="address truncate">Ngày đăng: @house.HouseDetails.FirstOrDefault()?.TimePost.ToString("dd/MM/yyyy")</div>
+                                        <div class="address truncate">Ngày đăng: @house.HouseDetails?.TimePost.ToString("dd/MM/yyyy")</div>
                                     </div>
 
                                 </div>

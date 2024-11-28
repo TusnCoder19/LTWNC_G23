@@ -16,7 +16,7 @@ namespace G23NHNT.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<House>> GetFilteredHousesAsync(string searchString, string priceRange, string sortBy, string roomType,string[] amenities)
+        public async Task<IEnumerable<House>> GetFilteredHousesAsync(string searchString, string priceRange, string sortBy, string roomType, string[] amenities)
         {
             var query = _context.Houses
                 .Include(h => h.HouseDetails)  // Include HouseDetails for filtering
@@ -27,8 +27,7 @@ namespace G23NHNT.Repositories
             // Search by keyword
             if (!string.IsNullOrEmpty(searchString))
             {
-                query = query.Where(h => h.NameHouse.Contains(searchString) || h.PostTitle.Contains(searchString) || h.HouseDetails.Any(hd =>
-                    hd.Address.Contains(searchString) || hd.Describe.Contains(searchString)));
+                query = query.Where(h => h.NameHouse.Contains(searchString) || h.PostTitle.Contains(searchString) || h.HouseDetails.Address.Contains(searchString) || h.HouseDetails.Describe.Contains(searchString));
             }
 
             // Filter by price range
@@ -37,11 +36,13 @@ namespace G23NHNT.Repositories
                 var ranges = priceRange.Split('-');
                 if (ranges.Length == 2 && int.TryParse(ranges[0], out int minPrice) && int.TryParse(ranges[1], out int maxPrice))
                 {
-                    query = query.Where(h => h.HouseDetails.Any(hd => hd.Price >= minPrice && hd.Price <= maxPrice));
+                    query = query.Where(h => h.HouseDetails.Price >= minPrice && h.HouseDetails.Price <= maxPrice);
+
                 }
                 else if (ranges.Length == 1 && int.TryParse(ranges[0], out int minOnlyPrice)) // For "Trên 10 triệu"
                 {
-                    query = query.Where(h => h.HouseDetails.Any(hd => hd.Price >= minOnlyPrice));
+                    query = query.Where(h => h.HouseDetails.Price >= minOnlyPrice);
+
                 }
             }
 
@@ -52,15 +53,14 @@ namespace G23NHNT.Repositories
             }
 
             // Sorting
-            if (!string.IsNullOrEmpty(sortBy))
+
+            query = sortBy switch
             {
-                query = sortBy switch
-                {
-                    "priceLowHigh" => query.OrderBy(h => h.HouseDetails.Min(hd => hd.Price)),
-                    "priceHighLow" => query.OrderByDescending(h => h.HouseDetails.Max(hd => hd.Price)),
-                    _ => query.OrderByDescending(h => h.IdHouse) // Default to newest
-                };
-            }
+                "priceLowHigh" => query.OrderBy(h => h.HouseDetails.Price),
+                "priceHighLow" => query.OrderByDescending(h => h.HouseDetails.Price),
+                "newest" => query.OrderByDescending(h => h.HouseDetails.TimePost),
+                _ => query.OrderByDescending(h => h.HouseDetails.TimePost),
+            };
 
             var housesList = await query.ToListAsync();
             if (amenities != null && amenities.Any())

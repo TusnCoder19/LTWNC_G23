@@ -27,8 +27,8 @@ namespace G23NHNT.Repositories
                 .Include(h => h.AmenityIds) // Ensure the AmenityIds property is included
                 .Include(h => h.IdUserNavigation)
                 .Where(h => string.IsNullOrEmpty(searchString) ||
-                    h.HouseDetails.Any(hd => hd.Address.Contains(searchString) ||
-                                             hd.Describe.Contains(searchString)))
+                    h.HouseDetails.Address.Contains(searchString) ||
+                                              h.HouseDetails.Describe.Contains(searchString))
                 .ToListAsync();
         }
 
@@ -101,10 +101,16 @@ namespace G23NHNT.Repositories
             }
         }
 
-        public async Task<List<House>> GetHousesByUserId(int userId)
+        public async Task<List<House>> GetHousesByUserId(int userId, int? userRole)
         {
+            if(userRole == 0)
+            {
+                return await _context.Houses
+                          .Include(h => h.HouseDetails)
+                          .ToListAsync();
+            }
             return await _context.Houses
-                            .Include(h => h.HouseDetails)
+                           .Include(h => h.HouseDetails)
                            .Where(h => h.IdUser == userId)
                            .ToListAsync();
         }

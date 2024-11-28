@@ -37,8 +37,9 @@ namespace G23NHNT.Controllers
             {
                 int userId = HttpContext.Session.GetInt32("UserId") ?? 0;
                 string userName = HttpContext.Session.GetString("UserName") ?? "";
+                int? userRole = HttpContext.Session.GetInt32("Role");
 
-                var houses = await _houseRepository.GetHousesByUserId(userId);
+                var houses = await _houseRepository.GetHousesByUserId(userId, userRole);
 
                 // Sử dụng HomeViewModel
                 var viewModel = new HomeViewModel
@@ -70,7 +71,7 @@ namespace G23NHNT.Controllers
             var viewModel = new HousePostViewModel
             {
                 House = house,
-                HouseDetail = house.HouseDetails.FirstOrDefault(),
+                HouseDetail = house.HouseDetails,
                 SelectedAmenities = house.AmenityIdsArray,
                 Amenities = (await _amenityRepository.GetAllAmenitiesAsync()).ToList(),
                 SelectedHouseType = house.HouseTypeId, // Lấy loại nhà hiện tại
@@ -123,7 +124,7 @@ namespace G23NHNT.Controllers
                 return NotFound("House not found.");
             }
 
-            var existingHouseDetail = existingHouse.HouseDetails.FirstOrDefault();
+            var existingHouseDetail = existingHouse.HouseDetails;
             if (existingHouseDetail == null)
             {
                 return NotFound("House details not found.");

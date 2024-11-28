@@ -10,7 +10,7 @@ namespace G23NHNT.Models
     {
         public House()
         {
-            HouseDetails = new HashSet<HouseDetail>();
+            HouseDetails = new HouseDetail();
             Reviews = new HashSet<Review>();
         }
 
@@ -37,7 +37,7 @@ namespace G23NHNT.Models
 
         public virtual HouseType? HouseType { get; set; }
 
-        public virtual ICollection<HouseDetail> HouseDetails { get; set; }
+        public virtual HouseDetail HouseDetails { get; set; }
         public virtual ICollection<Review> Reviews { get; set; }
 
         // Store AmenityIds as a JSON string in the database

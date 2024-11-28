@@ -15,34 +15,30 @@
             <p><strong>Tên nhà:</strong> @Model.House.NameHouse</p>
             <p><strong>Loại nhà trọ : </strong> @Model.House.HouseType.Name</p>
             <ul class="detail-list">
-                @foreach (var detail in Model.House.HouseDetails)
-                {
-                    <li class="detail-item">
-                        <p><strong>Địa Chỉ:</strong> @detail.Address</p>
-                        <p>
-                            <strong>Giá:</strong> @detail.Price.ToString("#,0", new
+                <li class="detail-item">
+                    <p><strong>Địa Chỉ:</strong> @Model.House.HouseDetails.Address</p>
+                    <p>
+                        <strong>Giá:</strong> @Model.House.HouseDetails.Price.ToString("#,0", new
 System.Globalization.CultureInfo("vi-VN")) VND
-                        </p>
-                        <p><strong>Diện Tích:</strong> @detail.DienTich m²</p>
-                        <p><strong>Tiền Điện:</strong> @detail.TienDien VND</p>
-                        <p><strong>Tiền Nước:</strong> @detail.TienNuoc VND</p>
-                        <p><strong>Tiền Dịch Vụ:</strong> @detail.TienDv VND</p>
-                        <p><strong>Mô Tả:</strong> @detail.Describe</p>
-                        <p><strong>Trạng Thái:</strong> @detail.Status</p>
-                        <p><strong>Ngày Đăng:</strong> @detail.TimePost.ToString("dd/MM/yyyy")</p>
-                        <p><strong>Số điện thoại:</strong> @Model.House.HouseDetails.FirstOrDefault().PhoneNumber</p>
-                        <p><strong>Số người ở tối đa:</strong> @Model.House.HouseDetails.FirstOrDefault().SoNguoiO</p>
+                    </p>
+                    <p><strong>Diện Tích:</strong> @Model.House.HouseDetails.DienTich m²</p>
+                    <p><strong>Tiền Điện:</strong> @Model.House.HouseDetails.TienDien VND</p>
+                    <p><strong>Tiền Nước:</strong> @Model.House.HouseDetails.TienNuoc VND</p>
+                    <p><strong>Tiền Dịch Vụ:</strong> @Model.House.HouseDetails.TienDv VND</p>
+                    <p><strong>Mô Tả:</strong> @Model.House.HouseDetails.Describe</p>
+                    <p><strong>Trạng Thái:</strong> @Model.House.HouseDetails.Status</p>
+                    <p><strong>Ngày Đăng:</strong> @Model.House.HouseDetails.TimePost.ToString("dd/MM/yyyy")</p>
+                    <p><strong>Số điện thoại:</strong> @Model.House.HouseDetails.PhoneNumber</p>
+                    <p><strong>Số người ở tối đa:</strong> @Model.House.HouseDetails.SoNguoiO</p>
 
-                    </li>
-                }
+                </li>
 
             </ul>
         </div>
         <div class="image-section">
-            @foreach (var detail in Model.House.HouseDetails)
-            {
-                <img src="@detail.Image" alt="Hình ảnh" class="detail-image" />
-            }
+
+            <img src="@Model.House.HouseDetails.Image" alt="Hình ảnh" class="detail-image" />
+            
         </div>
     </div>
 

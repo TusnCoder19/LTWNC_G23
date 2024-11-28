@@ -14,7 +14,7 @@ namespace G23NHNT.Repositories
         Task UpdateAsync(House house);
         Task DeleteAsync(int id);
         //Task<IEnumerable<House>> GetHousesByCategoryAsync(string category);
-        Task<List<House>> GetHousesByUserId(int userId);
+        Task<List<House>> GetHousesByUserId(int userId, int? userRole);
         Task<IEnumerable<House>> GetFilteredHousesAsync(string searchString, string priceRange, string sortBy, string roomType, List<string> amenities);
         Task UpdateAmenitiesAsync(int houseId, List<int> amenityIds);
     }
