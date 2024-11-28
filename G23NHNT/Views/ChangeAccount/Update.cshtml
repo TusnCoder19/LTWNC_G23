@@ -30,9 +30,6 @@
 
                             <input asp-for="UserName" class="form-control" disabled />
                             <input type="hidden" asp-for="UserName" />
-
-                            <input asp-for="UserName" class="form-control" />
-
                             <span asp-validation-for="UserName" class="text-danger"></span>
                         </div>
                         <div class="mb-3">
@@ -49,8 +46,6 @@
                                    disabled />
                             <input name="Role" type="hidden" value="@userRole" /> 
 
-                            <label asp-for="Role" class="form-label"></label>
-                            <input asp-for="Role" class="form-control" />
                             <span asp-validation-for="Role" class="text-danger"></span>
 
                         </div>
